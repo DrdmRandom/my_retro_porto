@@ -8,10 +8,10 @@ services:
     container_name: my-portfolio
     restart: unless-stopped
     ports:
-      - "3004:3004"
+      - "3014:3014"
     environment:
       NODE_ENV: "production"
-      PORT: "3004"
+      PORT: "3014"
       NEXT_PUBLIC_STRAPI_URL: "https://strapi.cihuy-familly.my.id"
       STRAPI_PROJECTS_ENDPOINT: "projects-dawwi"
       STRAPI_PUBLIC_PROJECTS_ENDPOINT: "public-projects"
@@ -20,7 +20,7 @@ services:
       # STRAPI_API_TOKEN: "${STRAPI_API_TOKEN}"
       # STRAPI_API_TOKEN: "isi-token-jika-collection-private"
     healthcheck:
-      test: ["CMD", "wget", "-qO", "-", "http://localhost:3004"]
+      test: ["CMD", "wget", "-qO", "-", "http://localhost:3014"]
       interval: 30s
       timeout: 10s
       retries: 3
