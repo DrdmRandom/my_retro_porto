@@ -3,7 +3,7 @@ services:
   my-portfolio:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Containerfile
     image: my-portfolio:latest
     container_name: my-portfolio
     restart: unless-stopped
@@ -16,4 +16,11 @@ services:
       STRAPI_PUBLIC_PROJECTS_ENDPOINT: "public-projects"
       STRAPI_CLOSE_PROJECTS_ENDPOINT: "close-projects"
       STRAPI_EXPERIENCES_ENDPOINT: "work-experiences"
+      # STRAPI_API_TOKEN: "${STRAPI_API_TOKEN}"
       # STRAPI_API_TOKEN: "isi-token-jika-collection-private"
+    healthcheck:
+      test: ["CMD", "wget", "-qO", "-", "http://localhost:3004"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 20s
