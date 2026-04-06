@@ -1,0 +1,19 @@
+version: "3.9"
+services:
+  my-portfolio:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: my-portfolio:latest
+    container_name: my-portfolio
+    restart: unless-stopped
+    ports:
+      - "3004:3004"
+    environment:
+      NODE_ENV: "production"
+      PORT: "3004"
+      NEXT_PUBLIC_STRAPI_URL: "https://strapi.cihuy-familly.my.id"
+      STRAPI_PUBLIC_PROJECTS_ENDPOINT: "public-projects"
+      STRAPI_CLOSE_PROJECTS_ENDPOINT: "close-projects"
+      STRAPI_EXPERIENCES_ENDPOINT: "work-experiences"
+      # STRAPI_API_TOKEN: "isi-token-jika-collection-private"
