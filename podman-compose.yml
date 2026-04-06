@@ -13,9 +13,10 @@ services:
       NODE_ENV: "production"
       PORT: "3004"
       NEXT_PUBLIC_STRAPI_URL: "https://strapi.cihuy-familly.my.id"
+      STRAPI_PROJECTS_ENDPOINT: "projects-dawwi"
       STRAPI_PUBLIC_PROJECTS_ENDPOINT: "public-projects"
       STRAPI_CLOSE_PROJECTS_ENDPOINT: "close-projects"
-      STRAPI_EXPERIENCES_ENDPOINT: "work-experiences"
+      STRAPI_EXPERIENCES_ENDPOINT: "work-experiences-dawwi"
       # STRAPI_API_TOKEN: "${STRAPI_API_TOKEN}"
       # STRAPI_API_TOKEN: "isi-token-jika-collection-private"
     healthcheck:

@@ -120,7 +120,46 @@ async function fetchCollection(candidates: string[]): Promise<StrapiItem[]> {
   return [];
 }
 
-function normalizeProject(item: StrapiItem, status: "public" | "private"): PortfolioProject {
+function resolveProjectStatus(
+  item: StrapiItem,
+  fallbackStatus: "public" | "private" = "private"
+): "public" | "private" {
+  const rawStatus = pickString(item, [
+    "status",
+    "statuss",
+    "Statuss",
+    "visibility",
+    "project_status"
+  ]).toLowerCase();
+  if (!rawStatus) return fallbackStatus;
+
+  if (
+    rawStatus.includes("public") ||
+    rawStatus.includes("publish") ||
+    rawStatus.includes("published") ||
+    rawStatus.includes("live")
+  ) {
+    return "public";
+  }
+
+  if (
+    rawStatus.includes("private") ||
+    rawStatus.includes("internal") ||
+    rawStatus.includes("close") ||
+    rawStatus.includes("closed")
+  ) {
+    return "private";
+  }
+
+  return fallbackStatus;
+}
+
+function normalizeProject(
+  item: StrapiItem,
+  fallbackStatus: "public" | "private" = "private"
+): PortfolioProject {
+  const status = resolveProjectStatus(item, fallbackStatus);
+
   const fallbackId = `${status}-${pickString(item, ["title", "name", "project_name"], "project")
     .toLowerCase()
     .replace(/\s+/g, "-")}`;
@@ -154,6 +193,14 @@ function normalizeExperience(item: StrapiItem): WorkExperience {
 }
 
 export async function getPortfolioData(): Promise<PortfolioData> {
+  const projectCandidates = [
+    process.env.STRAPI_PROJECTS_ENDPOINT ?? "projects-dawwi",
+    "projects-dawwi",
+    "projects-dawwis",
+    "portfolio-projects",
+    "my-projects"
+  ];
+
   const publicCandidates = [
     process.env.STRAPI_PUBLIC_PROJECTS_ENDPOINT ?? "public-projects",
     "published-projects",
@@ -169,15 +216,30 @@ export async function getPortfolioData(): Promise<PortfolioData> {
   ];
 
   const experienceCandidates = [
-    process.env.STRAPI_EXPERIENCES_ENDPOINT ?? "work-experiences",
+    process.env.STRAPI_EXPERIENCES_ENDPOINT ?? "work-experiences-dawwi",
+    "work-experiences-dawwi",
+    "work-experiences-dawwis",
     "experiences",
     "work-history"
   ];
 
-  const [publicRaw, closeRaw, experienceRaw] = await Promise.all([
-    fetchCollection(publicCandidates),
-    fetchCollection(closeCandidates),
+  const [projectRaw, experienceRaw] = await Promise.all([
+    fetchCollection(projectCandidates),
     fetchCollection(experienceCandidates)
+  ]);
+
+  if (projectRaw.length > 0) {
+    const normalized = projectRaw.map((item) => normalizeProject(item, "private"));
+    return {
+      publicProjects: normalized.filter((item) => item.status === "public"),
+      closeProjects: normalized.filter((item) => item.status === "private"),
+      experiences: experienceRaw.map(normalizeExperience)
+    };
+  }
+
+  const [publicRaw, closeRaw] = await Promise.all([
+    fetchCollection(publicCandidates),
+    fetchCollection(closeCandidates)
   ]);
 
   return {
