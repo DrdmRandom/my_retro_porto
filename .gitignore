@@ -8,8 +8,12 @@
 # production
 /build
 
+# local tooling
+/.pdf_tools
+
 # misc
 .DS_Store
+Thumbs.db
 *.pem
 
 # debug
@@ -21,6 +25,10 @@ pnpm-debug.log*
 # local env files
 .env*.local
 .env
+
+# editors
+.vscode/
+.idea/
 
 # typescript
 *.tsbuildinfo
