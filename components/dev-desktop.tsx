@@ -55,8 +55,10 @@ I am Dawwi, an Informatics student focused on:
 - Cloud infrastructure
 - DevOps automation
 - Linux system administration
+- Artificial Intelligence (AI)
+- Machine Learning (ML)
 
-Fresh Informatics graduate with a strong foundation in Cloud Computing, DevOps practices, and Linux system administration. Hands-on experience designing and managing a hybrid cloud environment using Oracle Cloud VPS, on-premise servers, and containerized applications (Docker, Podman). Familiar with networking (WireGuard, Nginx), Infrastructure as Code concepts, and database systems. Highly motivated to grow as a Cloud Engineer and continuously learn new technologies.`;
+Detail-oriented technology professional with hands-on experience in infrastructure operations, cloud technologies, automation, and AI/ML solutions. Skilled in Linux systems, networking, troubleshooting, and deploying scalable services, while also exploring intelligent systems through machine learning and data-driven projects. Passionate about building reliable, efficient, and innovative technology solutions across infrastructure and modern computing environments.`;
 }
 
 function buildInitialWindows(canvasWidth: number, canvasHeight: number): DesktopWindows {
