@@ -3,6 +3,7 @@
 Landing page portfolio bertema cloud/devops dengan:
 
 - Integrasi Strapi CMS (`CMS_Dawwi`) untuk project public, close/private, dan pengalaman kerja.
+- Integrasi Plausible Analytics self-hosted untuk tracking pageview.
 - Theme auto mengikuti preferensi sistem (`dark`/`light`) + toggle manual.
 - Desain responsif untuk HP, tablet, dan laptop kecil.
 - Port aplikasi `3004`.
@@ -19,6 +20,10 @@ Buka: `http://localhost:3004`
 ## 2) Environment
 
 Copy `.env.example` menjadi `.env` lalu sesuaikan endpoint collection Strapi.
+Jika pakai Plausible self-hosted, isi juga:
+
+- `NEXT_PUBLIC_PLAUSIBLE_DOMAIN`
+- `NEXT_PUBLIC_PLAUSIBLE_API_HOST`
 
 ## 3) Deploy dengan Podman
 

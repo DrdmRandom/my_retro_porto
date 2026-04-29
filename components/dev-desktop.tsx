@@ -210,6 +210,7 @@ export function DevDesktop({ projects, experiences }: DevDesktopProps) {
         !/^!\[[^\]]*\]\([^)]+\)$/.test(line.trim())
     )
     .map((line) => line.replace(/^#\s/, "").replace(/^- /, "- "));
+  const aboutPreviewImage = "/DSC03844_1_1.JPG";
 
   useEffect(() => {
     const syncCanvas = () => {
@@ -456,7 +457,7 @@ export function DevDesktop({ projects, experiences }: DevDesktopProps) {
                     <li className="indent file">dev-desktop.tsx</li>
                     <li className="indent folder">public</li>
                     <li className="indent file">profile.png</li>
-                    <li className="indent file">DSC02122.jpg</li>
+                    <li className="indent file">DSC03844_1_1.JPG</li>
                   </ul>
                 </aside>
 
@@ -476,7 +477,7 @@ export function DevDesktop({ projects, experiences }: DevDesktopProps) {
                       <h3>Rendered Preview</h3>
                       <div className="carousel single-image">
                         <Image
-                          src="/DSC02122.jpg"
+                          src={aboutPreviewImage}
                           alt="Foto jaket abu Dawwi"
                           width={210}
                           height={260}

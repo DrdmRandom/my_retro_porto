@@ -28,14 +28,24 @@ const themeBootScript = `
   })();
 `;
 
+const plausibleDomain =
+  process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN ?? "myretroporto.cihuy-familly.my.id";
+const plausibleHost = (
+  process.env.NEXT_PUBLIC_PLAUSIBLE_API_HOST ?? "https://analytics.cihuyproject.my.id"
+).replace(/\/+$/, "");
+const plausibleScriptSrc = `${plausibleHost}/js/script.js`;
+
 export const metadata: Metadata = {
   title: "Dawwi | Cloud & DevOps Portfolio",
   description:
     "Landing page anak IT Informatika untuk menampilkan project, pengalaman kerja, dan karya yang dipublish dari Strapi CMS.",
   icons: {
-    icon: "/portfolio.png",
-    shortcut: "/portfolio.png",
-    apple: "/portfolio.png"
+    icon: [
+      { url: "/icon.png?v=3", type: "image/png" },
+      { url: "/portfolio.png?v=3", type: "image/png" }
+    ],
+    shortcut: [{ url: "/icon.png?v=3", type: "image/png" }],
+    apple: [{ url: "/apple-icon.png?v=3", type: "image/png" }]
   }
 };
 
@@ -46,6 +56,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="id" suppressHydrationWarning>
+      <head>
+        <script
+          defer
+          data-domain={plausibleDomain}
+          src={plausibleScriptSrc}
+        />
+      </head>
       <body className={`${spaceGrotesk.variable} ${ibmPlexMono.variable}`}>
         <script dangerouslySetInnerHTML={{ __html: themeBootScript }} />
         {children}
